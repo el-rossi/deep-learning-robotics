@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[margin=2.5cm]{geometry}
+\title{Deep-Learning in Robotics and Intelligent Transportation Systems
+
+Homework 1: Paper Review}
+\author{Elena Rossi}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Paper}
+The paper \cite{8971544} was authored by Daniel Nam, Chaehyeuk Lee, Jaehwan Choi, Yeonjun Kim, and Soon-Geul Lee, researchers affiliated with Korean institutions including KC Machine Learning Lab, Medipixel, HANCOM Robotics, and Kyung Hee University. It was presented at the 2019 International Conference on Control, Automation and Systems, a well-established venue for research in robotics, control systems and automation.
+
+\section{Summary}
+
+The paper addresses the problem of controlling the motion of spherical robots using deep learning techniques. Spherical robots are inherently complex systems due to their nonlinear dynamics and nonholonomic constraints. These characteristics make it difficult to control both the robot's trajectory and stability using traditional control methods. The study specifically focuses on linear locomotion, where the robot must track a target velocity in a one-dimensional environment.
+\vspace{8pt}
+
+\noindent The authors analyse three different control approaches: a rule-based controller, a model-free deep reinforcement learning method, and a novel hybrid method called Controller Guided Model Learning (CGML). The rule-based approach relies on a double-loop PID controller derived from simplified dynamics equations. While this method can incorporate domain knowledge, it suffers from scalability issues, as tuning control parameters becomes increasingly complex with system complexity. The model-free reinforcement learning approach, implemented using Proximal Policy Optimization (PPO), does not require prior system knowledge and can learn complex behaviour. However, it is highly data-intensive and sensitive to reward function design, which can significantly affect performance.
+\vspace{8pt}
+
+\noindent To address these limitations, the authors propose CGML, a model-based method that integrates classical control with deep learning. The key idea is to use a simple controller to guide a neural network in learning the system's dynamics. Instead of directly learning a control policy from scratch, the method learns an inverse dynamics model that predicts control actions needed to achieve desired system states. This is achieved by training two neural networks: a policy network, which outputs control inputs, and a forward dynamics model, which approximates the system's behaviour and enables gradient-based optimization. By combining these components, CGML enables efficient learning while maintaining stability.
+\vspace{8pt}
+
+\noindent The experimental evaluation is conducted in a simulation environment using a spherical robot model. The authors compare performance of the three approaches in tracking a target velocity. The results show that CGML achieves comparable or superior control performance relative to both the rule-based controller and PPO. Most notably, CGML demonstrates significantly higher data efficiency: while PPO requires approximately 2 million interaction samples to converge, CGML achieves effective performance with only around 30000 samples. This represents an improvement of nearly two orders of magnitude. Furthermore, CGML can be trained using a single environment through buffer replay, making it more suitable for real-world robotic application where data collection is costly.
+\vspace{8pt}
+
+\noindent Additional experiments show that CGML learns the system dynamics more accurately than random exploration strategies, particularly near equilibrium points where precise control is required. This improved learning leads to lower tracking error and reduced variance compared to alternative methods. The authors emphasize that guiding the learning process using a controller helps restrict exploration to relevant regions of the state space, which contributes to better performance and faster convergence.
+\vspace{8pt}
+
+\noindent In conclusion, the paper demonstrates that combining classical control principles with deep learning leads to a more efficient and practical approach for robotics control problems. The proposed CGML method reduces data requirements, improves learning stability and enhances real-world applicability compared to purely model-free approaches. The authors suggest that future work could extend this framework by incorporating more advanced neural network architectures and applying the method to real hardware to validate its effectiveness under real-world conditions.
+
+\bibliographystyle{plain}
+\bibliography{refs}
+
+
+\end{document}
